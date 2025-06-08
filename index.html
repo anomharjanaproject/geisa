@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Consultant GEISA Report</title>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    /* Reset & base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: #f4f8fb;
+      color: #1a2e5b;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    a {
+      color: #3a69c9;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover, a:focus {
+      color: #244e94;
+      text-decoration: underline;
+      outline: none;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto 4rem;
+      padding: 2rem 2rem 3rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(26, 46, 91, 0.15);
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #244e94;
+    }
+    header h1 i {
+      color: #3a69c9;
+    }
+    header p {
+      font-style: italic;
+      color: #4a6fa5;
+      margin-top: 0;
+      font-size: 1rem;
+      font-weight: 500;
+      max-width: 600px;
+    }
+
+    nav {
+      margin: 2rem 0 3rem;
+      border-bottom: 2px solid #d0d9f2;
+      overflow-x: auto;
+    }
+    nav ul {
+      display: flex;
+      gap: 1.2rem;
+      padding-left: 0;
+      list-style: none;
+      margin: 0;
+      white-space: nowrap;
+    }
+    nav li a {
+      color: #4a6fa5;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 1rem;
+      user-select: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      border: 2px solid transparent;
+    }
+    nav li a.active,
+    nav li a:hover,
+    nav li a:focus {
+      background-color: #3a69c9;
+      color: white;
+      border-color: #244e94;
+      outline-offset: 2px;
+      outline: 2px solid transparent;
+    }
+
+    section {
+      margin-bottom: 4rem;
+    }
+    section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: #244e94;
+      border-left: 6px solid #3a69c9;
+      padding-left: 0.8rem;
+      font-weight: 700;
+    }
+    section h2 i {
+      color: #3a69c9;
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 1.05rem;
+      margin-top: 0;
+      max-width: 720px;
+    }
+
+    ul {
+      padding-left: 1.6rem;
+      max-width: 720px;
+      margin-top: 0.6rem;
+      font-size: 1rem;
+      color: #3a4a7a;
+    }
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .image-container {
+      margin-top: 1.8rem;
+      text-align: center;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .image-container img {
+      width: 100%;
+      height: auto;
+      max-height: 420px;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(58, 105, 201, 0.25);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .image-container img:hover,
+    .image-container img:focus {
+      transform: scale(1.04);
+      outline: none;
+    }
+    .caption {
+      font-size: 0.85rem;
+      color: #7a8cb8;
+      margin-top: 0.4rem;
+    }
+    .caption a {
+      color: #5a77c9;
+      font-weight: 600;
+    }
+    .caption a:hover,
+    .caption a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+
+    /* Bar Chart */
+    .bar-chart {
+      margin: 1.5rem 0;
+      width: 100%;
+      background: #dce6f8;
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 720px;
+      box-shadow: inset 0 2px 5px rgba(58, 105, 201, 0.2);
+    }
+    .bar {
+      height: 36px;
+      line-height: 36px;
+      color: white;
+      padding-left: 16px;
+      font-weight: 700;
+      transition: width 1s ease;
+      font-size: 1rem;
+      position: relative;
+      user-select: none;
+    }
+    .bar span {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .bar.agree {
+      background-color: #3a69c9;
+      width: 85%;
+    }
+    .bar.neutral {
+      background-color: #a9badf;
+      width: 10%;
+      color: #1a2e5b;
+    }
+    .bar.disagree {
+      background-color: #244e94;
+      width: 5%;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #7081b6;
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #d0d9f2;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .container {
+        padding: 1.5rem 1.5rem 2.5rem;
+        margin: 1rem 1rem 3rem;
+      }
+      header h1 {
+        font-size: 1.6rem;
+      }
+      nav ul {
+        gap: 0.8rem;
+      }
+      nav li a {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.9rem;
+      }
+      section h2 {
+        font-size: 1.4rem;
+      }
+      p, ul {
+        font-size: 0.95rem;
+      }
+      .bar {
+        height: 28px;
+        line-height: 28px;
+        font-size: 0.9rem;
+      }
+      .bar span {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <header>
+      <h1><i class="fas fa-venus-mars" aria-hidden="true"></i> Gender Equality & Inclusion Self-Assessment (GEISA) Report</h1>
+      <p>Advancing Transformative, Gender-Just Development with Plan International</p>
+    </header>
+
+    <nav aria-label="Primary navigation">
+      <ul>
+        <li><a href="#approach" class="active"><i class="fas fa-lightbulb" aria-hidden="true"></i> Approach to GEISA</a></li>
+        <li><a href="#methodology"><i class="fas fa-flask" aria-hidden="true"></i> Methodology</a></li>
+        <li><a href="#data-analysis"><i class="fas fa-chart-bar" aria-hidden="true"></i> Data Collection & Analysis</a></li>
+        <li><a href="#findings"><i class="fas fa-search" aria-hidden="true"></i> Key Findings</a></li>
+        <li><a href="#recommendations"><i class="fas fa-check-circle" aria-hidden="true"></i> Recommendations</a></li>
+        <li><a href="#conclusion"><i class="fas fa-flag-checkered" aria-hidden="true"></i> Conclusion</a></li>
+      </ul>
+    </nav>
+
+    <section id="approach" tabindex="-1">
+      <h2><i class="fas fa-lightbulb" aria-hidden="true"></i> Approach to GEISA</h2>
+      <p>
+        The assessment is grounded in a feminist participatory action research lens, emphasizing intersectionality, local knowledge, and inclusive, rights-based facilitation.
+      </p>
+      <p>
+        Co-designed with Plan Timor Leste’s GESI team, tools are tailored to local contexts with stakeholder mapping to ensure relevance and inclusion.
+      </p>
+      <div class="image-container">
+        <img
+          src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=800&q=80"
+          alt="Community participatory discussion"
+          tabindex="0"
+        />
+        <div class="caption">
+          Community participatory discussion fostering inclusion.<br />
+          <small>Source: <a href="https://unsplash.com/photos/5QgIuuBxKwM" target="_blank" rel="noopener noreferrer">Unsplash / Christina @ wocintechchat.com</a></small>
+        </div>
+      </div>
+    </section>
+
+    <section id="methodology" tabindex="-1">
+      <h2><i class="fas fa-flask" aria-hidden="true"></i> Methodology</h2>
+      <p>Mixed methods were employed to capture a rich, intersectional perspective:</p>
+      <ul>
+        <li>Qualitative: Key Informant Interviews (KIIs), Focus Group Discussions (FGDs).</li>
+        <li>Quantitative: Staff surveys analyzed with R-Studio.</li>
+        <li>Thematic analysis conducted using NVivo software.</li>
+        <li>Accessibility and safety measures ensured throughout.</li>
+      </ul>
+      <div class="image-container">
+        <img
+          src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Research methodology planning"
+          tabindex="0"
+        />
+        <div class="caption">
+          Research planning and mixed methods execution.<br />
+          <small>Source: <a href="https://www.pexels.com/photo/people-in-a-meeting-3861969/" target="_blank" rel="noopener noreferrer">Pexels / fauxels</a></small>
+        </div>
+      </div>
+    </section>
+
+    <section id="data-analysis" tabindex="-1">
+      <h2><i class="fas fa-chart-bar" aria-hidden="true"></i> Data Collection & Analysis</h2>
+      <p>
+        Data collection combined qualitative and quantitative approaches, focusing on gender, age, disability, and intersectional identities.
+      </p>
+      <ul>
+        <li>Qualitative coding and thematic analysis with NVivo.</li>
+        <li>Quantitative statistical analysis using R-Studio.</li>
+        <li>Ensured gender-sensitive, safe, and accessible facilitation.</li>
+        <li>Weekly Learning Circles for reflection and validation.</li>
+      </ul>
+      <div class="image-container">
+        <img
+          src="https://images.pexels.com/photos/3184308/pexels-photo-3184308.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+          alt="Data analysis session"
+          tabindex="0"
+        />
+        <div class="caption">
+          Collaborative data analysis session.<br />
+          <small>Source: <a href="https://www.pexels.com/photo/people-having-a-meeting-3184308/" target="_blank" rel="noopener noreferrer">Pexels / fauxels</a></small>
+        </div>
+      </div>
+    </section>
+
+    <section id="findings" tabindex="-1">
+      <h2><i class="fas fa-search" aria-hidden="true"></i> Key Findings</h2>
+      <p>The survey results show strong agreement with gender equality initiatives:</p>
+      <div class="bar-chart" aria-label="Survey response distribution">
+        <div class="bar agree" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" tabindex="0">
+          Agree <span>85%</span>
+        </div>
+        <div class="bar neutral" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" tabindex="0">
+          Neutral <span>10%</span>
+        </div>
+        <div class="bar disagree" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" tabindex="0">
+          Disagree <span>5%</span>
+        </div>
+      </div>
+      <p>
+        This indicates positive staff support and an enabling environment for transformative change.
+      </p>
+    </section>
+
+    <section id="recommendations" tabindex="-1">
+      <h2><i class="fas fa-check-circle" aria-hidden="true"></i> Recommendations</h2>
+      <ul>
+        <li>Strengthen ongoing feminist participatory action research.</li>
+        <li>Enhance accessibility and inclusion in all programs.</li>
+        <li>Integrate GEISA findings into organizational policies.</li>
+        <li>Regular capacity building for gender equality facilitators.</li>
+        <li>Continuous monitoring and feedback mechanisms.</li>
+      </ul>
+    </section>
+
+    <section id="conclusion" tabindex="-1">
+      <h2><i class="fas fa-flag-checkered" aria-hidden="true"></i> Conclusion</h2>
+      <p>
+        The Consultant GEISA report lays a foundation for transformative, gender-just development in Plan International Timor Leste, with participatory research and evidence-based recommendations.
+      </p>
+    </section>
+
+    <footer>
+      &copy; 2025 Developed by Anom Harjana for Plan International. All rights reserved.
+    </footer>
+  </div>
+</body>
+</html>
